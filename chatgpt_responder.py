@@ -1,8 +1,4 @@
 import openai
-<<<<<<< HEAD
-=======
-# import queue
->>>>>>> cdd3dcca7f4b302a7cab16bc34b68b67f4a0b503
 import threading
 import time
 
@@ -11,7 +7,7 @@ openai.api_key = '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'
 class ChatGPTResponder:
     def __init__(self, q_in, q_out):
         # self.setting = [{"role": "system", "content": "あなたは、「女子高生のギャル」を演じてください。一人称は、「わたし」、二人称は、「あなた」です。私の発言がポジティブの場合、（ポジティブ）を出力し、その後、共感します。私の発言がネガティブの場合、（ネガティブ）を出力し、その後、慰めます。そのあと５０文字以内で会話が続くような応答してください。"}]
-        self.setting = [{"role": "system", "content": "あなたは、「女子高生のギャル」を演じてください。一人称は、「わたし」、二人称は、「あなた」です。５０文字以内でずっと会話が続くような応答してください。"}]
+        self.setting = [{"role": "system", "content": "あなたは、「女子高生のギャル」を演じてください。一人称は、「わたし」、二人称は、「あなた」です。５０文字以内で会話が継続できるような応答をしてください。"}]
         self.chat_history = []
         self.chat_history_count = 10
         self.q_in = q_in
