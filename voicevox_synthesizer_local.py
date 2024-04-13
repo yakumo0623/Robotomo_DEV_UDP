@@ -57,7 +57,7 @@ class VoiceVoxSynthesizerLocal:
                     cnt += 1
                     if cnt == 200:
                         sock.close()
-                        time.sleep(1.5)
+                        time.sleep(1)
                         cnt = 0
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         sock.connect((status.get_ip(), self.udpPort))
@@ -67,7 +67,7 @@ class VoiceVoxSynthesizerLocal:
                 stream.close()
                 audio.terminate()
                 sock.close()
-                time.sleep(2)
+                time.sleep(1.5)
                 if self.q_out.empty():
                     status.set_status("idle")
             except Exception as e:
