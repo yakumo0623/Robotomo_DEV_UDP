@@ -5,8 +5,11 @@ import os
 
 class ChatGPTResponder:
     def __init__(self, q_in, q_out):
-        self.role = "あなたは、「女子高生のギャル」を演じてください。"
-        self.role += "一人称は、「わたし」、二人称は、「あなた」です。"
+        self.role = "あなたは「四国めたん」です。"
+        self.role = "四国めたんは、17歳の高等部2年生の女の子です。"
+        self.role = "四国めたんは、名前や年齢を聞かれたらこの内容で答えます。"
+        self.role = "四国めたんは、性格はツンデレで、タメ口です。"
+        self.role += "一人称は、「わたくし」、二人称は、「ひろくん」です。"
         self.role += "５０文字以内で会話が継続できるような応答をしてください。"
         self.setting = [{"role": "system", "content": self.role}]
         openai.api_key = os.environ["STACK_CHAN_OPENAI"]
@@ -36,7 +39,7 @@ class ChatGPTResponder:
             realtime_response = ""
             for chunk in response:
                 text = chunk['choices'][0]['delta'].get('content')
-
+                model = chunk['model']
                 if(text==None):
                     pass
                 else:
@@ -49,7 +52,7 @@ class ChatGPTResponder:
                             pos = index + 2
                             sentence = realtime_response[:pos]
                             realtime_response = realtime_response[pos:]
-                            print(f'応答文： {sentence}({f"{time.time() - start_time:.1f}"} 秒)')
+                            print(f'応答文： {sentence}({f"{time.time() - start_time:.1f}"} 秒) {model}')
 
                             self.q_out.put(sentence)
                             start_time = time.time()

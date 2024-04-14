@@ -57,7 +57,7 @@ class VoiceVoxSynthesizerLocal:
                     cnt += 1
                     if cnt == 200:
                         sock.close()
-                        time.sleep(1)
+                        time.sleep(2)
                         cnt = 0
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                         sock.connect((status.get_ip(), self.txPort))
