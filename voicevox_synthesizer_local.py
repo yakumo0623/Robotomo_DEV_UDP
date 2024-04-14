@@ -7,11 +7,11 @@ import wave
 import io
 import status
 import socket
-import datetime
+import os
 
 class VoiceVoxSynthesizerLocal:
-    def __init__(self, q_in, q_out):
-        self.host = "192.168.2.107"
+    def __init__(self, q_in, q_out, port):
+        self.host = os.environ["STACK_CHAN_LOCAL_VOICEVOX_HOST"]
         self.port = 50021
         self.speaker = 0
         self.url1 = f"http://{self.host}:{self.port}/audio_query"
@@ -20,7 +20,7 @@ class VoiceVoxSynthesizerLocal:
         self.chunk = 512
         self.q_in = q_in
         self.q_out = q_out
-        self.udpPort = 4444
+        self.txPort = port
         self.t1 = threading.Thread(target=self.synthesize)
         self.t2 = threading.Thread(target=self.play)
         self.t1.start()
@@ -49,7 +49,7 @@ class VoiceVoxSynthesizerLocal:
                 audio = pyaudio.PyAudio()
                 stream = audio.open(format=pyaudio.paInt16, channels=1, rate=self.rate, output=True)
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                sock.connect((status.get_ip(), self.udpPort))
+                sock.connect((status.get_ip(), self.txPort))
                 data = wv.readframes(self.chunk)
                 while data:
                     # stream.write(data)
@@ -60,7 +60,7 @@ class VoiceVoxSynthesizerLocal:
                         time.sleep(1)
                         cnt = 0
                         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                        sock.connect((status.get_ip(), self.udpPort))
+                        sock.connect((status.get_ip(), self.txPort))
                     data = wv.readframes(self.chunk)
                 time.sleep(0.2)
                 stream.stop_stream()

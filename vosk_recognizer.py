@@ -8,16 +8,16 @@ import status
 import socket
 
 class VoskRecognizer:
-    def __init__(self, q_in, q_out):
+    def __init__(self, q_in, q_out, port):
         self.samplerate = 16000
         self.model = Model(lang="ja")
         self.recognizer = KaldiRecognizer(self.model, self.samplerate)
         self.q_in = q_in
         self.q_out = q_out
         self.udpIP = "0.0.0.0"
-        self.udpPort = 3333
+        self.rxPort = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sock.bind((self.udpIP, self.udpPort))
+        self.sock.bind((self.udpIP, self.rxPort))
         self.t = threading.Thread(target=self.recognize)
         self.t.start()
 
