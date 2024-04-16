@@ -55,7 +55,7 @@ class VoiceVoxSynthesizerLocal:
                     # stream.write(data)
                     sock.send(data)
                     cnt += 1
-                    if cnt == 200:
+                    if cnt == 190:
                         sock.close()
                         time.sleep(2)
                         cnt = 0
@@ -67,7 +67,7 @@ class VoiceVoxSynthesizerLocal:
                 stream.close()
                 audio.terminate()
                 sock.close()
-                time.sleep(1.5)
+                time.sleep(2)
                 if self.q_out.empty():
                     status.set_status("idle")
             except Exception as e:
