@@ -46,8 +46,8 @@ class VoiceVoxSynthesizerLocal:
                 voice = self.q_out.get()
                 cnt = 0
                 wv = wave.open(io.BytesIO(voice))
-                audio = pyaudio.PyAudio()
-                stream = audio.open(format=pyaudio.paInt16, channels=1, rate=self.rate, output=True)
+                # audio = pyaudio.PyAudio()
+                # stream = audio.open(format=pyaudio.paInt16, channels=1, rate=self.rate, output=True)
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.connect((status.get_ip(), self.txPort))
                 data = wv.readframes(self.chunk)
@@ -63,9 +63,9 @@ class VoiceVoxSynthesizerLocal:
                         sock.connect((status.get_ip(), self.txPort))
                     data = wv.readframes(self.chunk)
                 time.sleep(0.2)
-                stream.stop_stream()
-                stream.close()
-                audio.terminate()
+                # stream.stop_stream()
+                # stream.close()
+                # audio.terminate()
                 sock.close()
                 time.sleep(2)
                 if self.q_out.empty():
